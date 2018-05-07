@@ -3,16 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>myApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-<div class="container">
+<div ng-controller="mainCtrl" data-ng-init="init()" class="container-fluid">
+    <div class="container">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Поиск</span>
+            </div>
+            <input type="text" ng-model="searchString" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+        </div>
+    </div>
+    <div class="container">
+        <p class="">Page: <span class="text-info">{{pager.currentPage}}</span></p>
+        <div ng-cloak
+             data-ng-repeat="a in arms "
+             id="item_{{a.id}}>"
+             data-ng-click="getItemId(a.id)" class="simple-item-bg">
+            <div class="">
+                <img class="item-image" src="{{a.imageUrl}}" alt="">
+            </div>
+            <div class="text-info">{{a.name}}</div>
+            <div class="text-danger">{{a.price}} TJS</div>
+        </div>
+        <div>
+            <div class="pagination-div">
+                <ul ng-cloak data-ng-if="pager.pages.length" class="pagination-div">
 
+                    <li ng-cloak class="li_for_pagination" data-ng-class="{disabled:pager.currentPage === 1}"
+                        data-ng-click="setPage(pager.currentPage - 1)">
+                        <a><span class="text_pagination"><</span></a>
+                    </li>
+                    <li ng-cloak class="li_for_pagination" data-ng-repeat="page in pager.pages"
+                        data-ng-class="{active:pager.currentPage === page}" ng-cloak data-ng-click="setPage(page)">
+                        <a><span class="text_pagination">{{page}}</span></a>
+                    </li>
+                    <li ng-cloak class="li_for_pagination"
+                        data-ng-class="{disabled:pager.currentPage === pager.totalPages}"
+                        data-ng-click="setPage(pager.currentPage + 1)">
+                        <a><span class="text_pagination">></span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
-
 <script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="node_modules/underscore/underscore.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/services/ImageData.js"></script>
+<script type="text/javascript" src="js/services/PagerService.js"></script>
+<script type="text/javascript" src="js/controllers/MainController.js"></script>
 </body>
 </html>

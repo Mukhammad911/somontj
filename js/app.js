@@ -1,2 +1,6 @@
-let myApp = angular.module('myApp');
+'use strict';
+var myApp = angular.module('myApp',[]);
+
+
+
 
